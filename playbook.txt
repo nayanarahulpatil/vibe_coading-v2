@@ -1,0 +1,818 @@
+This playbook becomes your reusable library of prompts that can be used repeatedly for:
+
+* BRD Analysis
+* Architecture Design
+* Technology Selection
+* React Native Development
+* Backend Development
+* Database Design
+* SDK Design
+* Career Growth
+* Interview Preparation
+* Project Planning
+* Team Onboarding
+* Technical Documentation
+* AI-Assisted Development
+
+---
+
+# AI Prompt Playbook
+
+## For Software Engineers, Architects, Product Teams & React Native Developers
+
+---
+
+# 1. BRD ANALYSIS PLAYBOOK
+
+## When To Use
+
+Use when:
+
+* New project starts
+* BRD received from client
+* Requirement gathering phase
+* Product discovery phase
+
+---
+
+## Prompt Template
+
+ROLE:
+You are a Senior Business Analyst, Product Owner, Solution Architect and Domain Expert.
+
+TASK:
+Analyze the attached BRD.
+
+CONTEXT:
+- I am new to the project
+- Need business understanding
+- Need technical understanding
+- Need implementation understanding
+
+FORMAT:
+
+1. Executive Summary
+2. Business Objectives
+3. Functional Requirements
+4. Non Functional Requirements
+5. User Roles
+6. User Journeys
+7. Feature Breakdown
+8. Database Understanding
+9. API Understanding
+10. Architecture Understanding
+11. Development Effort Breakdown
+12. Risks & Assumptions
+13. Questions To Ask Stakeholders
+
+---
+
+# 2. TECH STACK DECISION PLAYBOOK
+
+## When To Use
+
+Use before architecture design.
+
+---
+
+## Prompt Template
+
+ROLE:
+You are a CTO, Solution Architect and Engineering Manager.
+
+ACTION:
+Analyze project requirements and suggest technology stacks.
+
+CONTEXT:
+- Project Type
+- Team Size
+- Timeline
+- Budget
+- Scalability Expectations
+
+COMPARE:
+
+- React Native
+- Flutter
+- Kotlin Multiplatform
+- Native Android/iOS
+- Ionic
+
+OUTPUT:
+
+1. Pros
+2. Cons
+3. Development Speed
+4. Hiring Availability
+5. Long Term Maintenance
+6. Scalability
+7. Cost
+8. Recommended Stack
+9. Decision Matrix
+
+---
+
+# 3. APPLICATION ARCHITECTURE PLAYBOOK
+
+## When To Use
+
+Before coding starts.
+
+---
+
+## Prompt Template
+
+ROLE:
+You are a Principal Software Architect.
+
+TASK:
+Design a scalable architecture.
+
+CONTEXT:
+- Team consists of:
+  - New Joiners
+  - Freshers
+  - Interns
+
+REQUIREMENTS:
+
+- Maintainable
+- Scalable
+- Easy onboarding
+- Future proof
+
+OUTPUT:
+
+1. High Level Architecture
+2. Folder Structure
+3. Design Patterns
+4. Module Boundaries
+5. State Management
+6. API Layer
+7. Dependency Injection
+8. Security Layer
+9. Testing Strategy
+10. CI/CD
+
+---
+
+# 4. REACT NATIVE PROJECT SETUP PLAYBOOK
+
+## Prompt Template
+
+ROLE:
+Senior React Native Architect
+
+TASK:
+Create project setup guide.
+
+CONSTRAINTS:
+
+- Latest React Native
+- New Architecture
+- TypeScript
+- Redux Toolkit
+- React Navigation
+- Axios
+- React Query
+- Jest
+
+OUTPUT:
+
+1. Project Creation
+2. Folder Structure
+3. Dependency Installation
+4. Android Setup
+5. iOS Setup
+6. Environment Setup
+7. Git Setup
+8. CI/CD Setup
+9. Coding Standards
+10. Project Conventions
+
+---
+
+# 5. FULL STACK IMPLEMENTATION PLAYBOOK
+
+## Prompt Template
+
+ROLE:
+Senior Full Stack Architect
+
+TECH STACK:
+
+Frontend:
+- React Native
+
+Backend:
+- Node.js
+- Express
+
+Database:
+- MongoDB
+
+OUTPUT:
+
+1. Architecture Diagram
+2. API Design
+3. Authentication
+4. Database Design
+5. Deployment
+6. Monitoring
+7. Security
+8. Scalability
+9. Development Roadmap
+
+---
+
+# 6. DATABASE DESIGN PLAYBOOK
+
+## Prompt Template
+
+ROLE:
+Senior Database Architect
+
+TASK:
+Design database schema.
+
+OUTPUT:
+
+1. Collections
+2. Documents
+3. Relationships
+4. Indexes
+5. Query Optimization
+6. Scaling Strategy
+7. Example Documents
+8. Migration Strategy
+
+---
+
+# 7. API DESIGN PLAYBOOK
+
+## Prompt Template
+
+ROLE:
+Senior Backend Architect
+
+TASK:
+Create API specifications.
+
+OUTPUT:
+
+1. REST Endpoints
+2. Request Schema
+3. Response Schema
+4. Authentication
+5. Error Handling
+6. Pagination
+7. Rate Limiting
+8. API Versioning
+
+---
+
+# 8. SDK DESIGN PLAYBOOK
+
+## Prompt Template
+
+ROLE:
+Senior SDK Architect
+
+TASK:
+Design configurable SDK.
+
+CONSTRAINTS:
+
+- React Native New Architecture
+- TurboModules
+- Kotlin
+- Swift
+
+OUTPUT:
+
+1. Architecture
+2. Native Layer
+3. JS Layer
+4. TurboModule
+5. Security
+6. Installation
+7. Future Expansion
+
+---
+
+# 9. PAYMENT INTEGRATION PLAYBOOK
+
+## Prompt Template
+
+ROLE:
+Senior Payment Architect
+
+TASK:
+Integrate payment gateway.
+
+GATEWAY:
+Stripe
+
+OUTPUT:
+
+1. Merchant Setup
+2. Backend Integration
+3. Mobile Integration
+4. Webhooks
+5. Security
+6. Testing
+7. Production Go Live Checklist
+
+---
+
+# 10. FIREBASE SETUP PLAYBOOK
+
+## Prompt Template
+
+ROLE:
+Senior Mobile Architect
+
+TASK:
+Setup Firebase.
+
+SERVICES:
+
+- FCM
+- Analytics
+- Crashlytics
+
+OUTPUT:
+
+1. Firebase Console Setup
+2. Android Setup
+3. iOS Setup
+4. Environment Configuration
+5. Testing
+6. Production Checklist
+
+---
+
+# 11. THIRD PARTY SERVICE PLAYBOOK
+
+## Prompt Template
+
+ROLE:
+Senior Integration Architect
+
+TASK:
+Setup:
+
+- Twilio
+- SendGrid
+
+OUTPUT:
+
+1. Account Creation
+2. Security Configuration
+3. API Keys
+4. Backend Integration
+5. OTP Flow
+6. Email Flow
+7. Production Checklist
+
+---
+
+# 12. PROJECT PLANNING PLAYBOOK
+
+## Prompt Template
+
+ROLE:
+Engineering Manager
+
+TASK:
+Create project plan.
+
+OUTPUT:
+
+1. Epics
+2. User Stories
+3. Sprint Planning
+4. Timeline
+5. Resource Allocation
+6. Risk Analysis
+7. Dependencies
+
+---
+
+# 13. CODE REVIEW PLAYBOOK
+
+## Prompt Template
+
+ROLE:
+Senior Staff Engineer
+
+TASK:
+Review code.
+
+CHECK:
+
+- Architecture
+- Performance
+- Security
+- Maintainability
+- Readability
+- Testing
+
+OUTPUT:
+
+1. Findings
+2. Severity
+3. Improvements
+4. Refactored Example
+
+---
+
+# 14. DEBUGGING PLAYBOOK
+
+## Prompt Template
+
+ROLE:
+Senior Mobile Engineer
+
+TASK:
+Debug issue.
+
+CONTEXT:
+Provide logs and code.
+
+OUTPUT:
+
+1. Root Cause
+2. Reproduction
+3. Debugging Steps
+4. Fix
+5. Validation
+
+---
+
+# 15. CAREER ROADMAP PLAYBOOK
+
+## Prompt Template
+
+ROLE:
+Senior Engineering Mentor
+
+TASK:
+Create career roadmap.
+
+TARGET:
+React Native Developer
+
+OUTPUT:
+
+1. Beginner
+2. Junior
+3. Mid Level
+4. Senior
+5. Staff Engineer
+
+Include:
+
+- Skills
+- Projects
+- Timeline
+- Interview Prep
+- Salary Growth
+
+---
+
+# 16. INTERVIEW PREPARATION PLAYBOOK
+
+## Prompt Template
+
+ROLE:
+Engineering Manager
+
+TASK:
+Prepare interview roadmap.
+
+OUTPUT:
+
+1. JavaScript
+2. TypeScript
+3. React
+4. React Native
+5. Android
+6. iOS
+7. System Design
+8. Behavioral Questions
+9. Mock Interview Questions
+
+---
+
+# 17. RESUME REVIEW PLAYBOOK
+
+## Prompt Template
+
+ROLE:
+Senior Hiring Manager
+
+TASK:
+Review resume.
+
+OUTPUT:
+
+1. ATS Score
+2. Missing Skills
+3. Improvements
+4. Strong Bullet Points
+5. Recruiter Feedback
+
+---
+
+# 18. TEAM ONBOARDING PLAYBOOK
+
+## Prompt Template
+
+ROLE:
+Engineering Manager
+
+TASK:
+Create onboarding guide.
+
+AUDIENCE:
+
+- Freshers
+- Interns
+- New Joiners
+
+OUTPUT:
+
+1. Project Overview
+2. Architecture
+3. Folder Structure
+4. Coding Standards
+5. Git Workflow
+6. Release Process
+
+---
+
+# 19. MASTER ARCHITECTURE PROMPT (Reusable)
+
+This is the prompt you should use most often.
+
+ROLE:
+You are a Principal Software Architect, Product Owner, Engineering Manager and Technical Mentor.
+
+TASK:
+Design a production-grade architecture for the application.
+
+CONTEXT:
+
+* Team consists of freshers, interns and junior developers
+* Architecture must be scalable
+* Easy to maintain
+* Easy onboarding
+* Industry standard
+* Future proof
+
+BEFORE ANSWERING:
+
+1. Ask clarification questions if required
+2. Verify latest stable versions of libraries/frameworks
+3. Explain tradeoffs of architecture decisions
+
+OUTPUT:
+
+1. Project Overview
+2. High Level Architecture
+3. Technology Stack
+4. Folder Structure
+5. Module Design
+6. Database Design
+7. API Design
+8. Authentication
+9. State Management
+10. CI/CD
+11. Security
+12. Testing
+13. Monitoring
+14. Deployment
+15. Team Structure
+16. Development Roadmap
+17. Production Checklist
+18. Future Scalability Strategy
+19. Industry Best Practices
+20. Learning Guide For New Joiners
+
+This playbook can serve as a reusable foundation for almost any software project—from BRD analysis through architecture, implementation, deployment, onboarding, and career development.
+
+# 20. Code Generation Anti-Hallucination Prompt (Reusable)
+
+CODE SAFETY MODE
+
+ROLE:
+You are a Senior React Native Architect.
+
+TASK:
+Design a scalable e-commerce application architecture.
+
+Before generating code:
+
+1. Verify all dependencies exist.
+
+2. Verify APIs are real and publicly available.
+
+3. Do not invent:
+   - SDK methods
+   - Hooks
+   - Components
+   - Library exports
+   - Configuration options
+
+4. If uncertain:
+   - Mark code as pseudocode.
+   - Explain assumptions.
+
+5. Mention:
+   - Required packages
+   - Required versions
+   - Platform requirements
+
+6. If the implementation depends on undocumented behavior:
+   - Warn explicitly.
+
+7. Prefer official documentation patterns over assumptions.
+
+8. Accuracy is more important than generating complete code.
+
+
+## 21. Master prompt KPI generation
+
+ROLE:
+You are a Senior Business Analyst, Product Owner, Solution Architect, QA Lead, and Enterprise Software Consultant.
+
+TASK:
+Analyze the provided project background and business requirements and create a complete KPI.md document in markdown format.
+
+OBJECTIVE:
+Generate measurable Key Performance Indicators (KPIs) that can be used by Product Owners, Business Analysts, Developers, QA Engineers, and Stakeholders to validate project success.
+
+INPUT:
+Project Name: [PROJECT_NAME]
+
+Client Background:
+[CLIENT_BACKGROUND]
+
+Business Problem Statement:
+[PROBLEM_STATEMENT]
+
+OUTPUT FORMAT:
+
+# Project: [PROJECT_NAME]
+
+## Project Description
+
+Provide a concise overview of the system, its purpose, target users, and business goals.
+
+---
+
+# Key Performance Indicators (KPIs)
+
+Create KPI sections based on the project domain.
+
+For each module generate a table:
+
+## 1. [MODULE NAME]
+
+| KPI      | Description                     | Pass/Fail |
+| -------- | ------------------------------- | --------- |
+| KPI Name | Detailed measurable requirement | Pass      |
+
+Rules:
+
+* Create 5–10 KPIs per module.
+* KPIs must be measurable and testable.
+* KPIs should represent acceptance criteria.
+* Default status should be "Pass".
+* Cover both business and technical requirements.
+
+Possible modules (adjust based on project):
+
+1. User Management
+2. Authentication & Authorization
+3. Travel Request Management
+4. Expense Claim Management
+5. Approval Workflow
+6. Policy Compliance
+7. Notifications & Alerts
+8. Reimbursement Processing
+9. Reports & Analytics
+10. Admin Management
+11. Audit & Compliance
+12. Mobile Responsiveness
+13. Security
+14. Performance
+15. Integration
+16. Testing & Documentation
+17. Deployment & Infrastructure
+
+---
+
+## Technical Stack
+
+Recommend an enterprise-grade technical stack.
+
+Include:
+
+* Frontend
+* Backend
+* Database
+* Authentication
+* File Storage
+* Notifications
+* Reporting Engine
+* Containerization
+* CI/CD
+* Monitoring
+* Testing Frameworks
+
+Format:
+
+* **Frontend:** ...
+* **Backend:** ...
+* **Database:** ...
+* **Authentication:** ...
+* **Containerization:** ...
+
+---
+
+## Development Timeline
+
+Create a realistic implementation plan.
+
+Example:
+
+### Phase 1
+
+* Requirement Analysis
+* Architecture Design
+
+### Phase 2
+
+* Core Development
+
+### Phase 3
+
+* Integrations
+
+### Phase 4
+
+* Testing
+
+### Phase 5
+
+* Deployment
+
+---
+
+## Non-Functional KPIs
+
+Create measurable KPIs for:
+
+| KPI                  | Target       |
+| -------------------- | ------------ |
+| API Response Time    | < 2 seconds  |
+| System Availability  | 99.9%        |
+| Concurrent Users     | 10,000+      |
+| Database Query Time  | < 500ms      |
+| Security Compliance  | OWASP Top 10 |
+| Backup Recovery Time | < 1 hour     |
+
+---
+
+## Success Criteria
+
+Generate 10-20 measurable success criteria.
+
+Example:
+
+* Employees can create travel requests in less than 3 minutes.
+* Managers can approve/reject requests within 1 minute.
+* Expense claims are processed with 100% audit traceability.
+* Reimbursements are completed within SLA timelines.
+* Travel policy violations are automatically detected.
+* Reports can be generated in less than 10 seconds.
+* System supports 10,000+ employees.
+* Mobile and desktop experiences are fully responsive.
+* Role-based access control is enforced across all modules.
+
+---
+
+ADDITIONAL RULES
+
+1. Think like a Business Analyst and QA Lead.
+2. Every KPI must be testable.
+3. Every KPI should be measurable.
+4. Avoid vague requirements.
+5. Include business KPIs and technical KPIs.
+6. Include enterprise-scale considerations.
+7. Output only markdown.
+8. Structure the document exactly as a production-ready KPI.md file.
+9. Create KPIs according to the domain and project requirements rather than using generic placeholders.
+10. Include all mandatory modules and add domain-specific modules when necessary.

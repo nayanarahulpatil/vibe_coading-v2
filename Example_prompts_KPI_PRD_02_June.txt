@@ -1,0 +1,627 @@
+Prompt for KPI Generation
+
+ROLE:
+
+You are a Senior Business Analyst, Product Owner, Enterprise Solution Architect, QA Lead, and KPI Consultant with extensive experience designing large-scale enterprise applications.
+
+
+
+TASK:
+
+Analyze the provided project information and generate a complete production-ready KPI.md document.
+
+
+
+PROJECT NAME:
+
+Enterprise Employee Travel & Expense Management System
+
+
+
+CLIENT BACKGROUND:
+
+
+
+We are a large organization with approximately 10,000+ employees operating across multiple locations.
+
+
+
+Employees frequently travel for:
+
+
+
+* Client Meetings
+
+* Business Conferences
+
+* Training Programs
+
+* Internal Meetings
+
+* Audits
+
+* Vendor Meetings
+
+* Project Deployments
+
+* Customer Visits
+
+
+
+Currently, travel requests, approvals, expense claims, reimbursements, and reporting activities are managed through:
+
+
+
+* Emails
+
+* Excel Sheets
+
+* Phone Calls
+
+* Paper-Based Documents
+
+
+
+This process creates significant operational challenges including:
+
+
+
+* Lack of visibility
+
+* Approval delays
+
+* Missing documentation
+
+* Manual effort
+
+* Policy violations
+
+* Expense fraud risks
+
+* Poor auditability
+
+* Delayed reimbursements
+
+* Inaccurate reporting
+
+
+
+BUSINESS PROBLEM STATEMENT:
+
+
+
+The organization requires a centralized Travel & Expense Management System that automates the entire travel lifecycle from travel request creation to reimbursement settlement.
+
+
+
+The system should:
+
+
+
+1. Allow employees to submit travel requests.
+
+2. Enable multi-level approval workflows.
+
+3. Support travel policy validation.
+
+4. Manage travel bookings.
+
+5. Capture expense claims.
+
+6. Upload bills and receipts.
+
+7. Perform expense verification.
+
+8. Support reimbursement processing.
+
+9. Generate reports and dashboards.
+
+10. Maintain audit trails.
+
+11. Send notifications and reminders.
+
+12. Support web and mobile platforms.
+
+13. Handle 10,000+ employees.
+
+14. Integrate with HRMS and Finance systems.
+
+
+
+TARGET USERS:
+
+
+
+1. Employees
+
+2. Managers
+
+3. Department Heads
+
+4. Finance Team
+
+5. Travel Desk Team
+
+6. HR Team
+
+7. Auditors
+
+8. System Administrators
+
+
+
+EXPECTED MODULES:
+
+
+
+1. User Management
+
+2. Authentication & Authorization
+
+3. Employee Profile Management
+
+4. Travel Request Management
+
+5. Travel Approval Workflow
+
+6. Travel Booking Management
+
+7. Expense Claim Management
+
+8. Receipt & Document Management
+
+9. Expense Verification
+
+10. Reimbursement Processing
+
+11. Policy Compliance Engine
+
+12. Notification & Alerts
+
+13. Dashboard & Analytics
+
+14. Reports Management
+
+15. Audit Trail Management
+
+16. Admin Management
+
+17. HRMS Integration
+
+18. Finance/ERP Integration
+
+19. Mobile Application Support
+
+20. Security & Compliance
+
+21. Performance & Scalability
+
+22. Testing & Documentation
+
+23. Deployment & Infrastructure
+
+
+
+OUTPUT FORMAT:
+
+
+
+Generate a complete KPI.md file using the following structure:
+
+
+
+# Project: Enterprise Employee Travel & Expense Management System
+
+
+
+## Project Description
+
+
+
+Provide a detailed business overview describing:
+
+
+
+* Problem
+
+* Objectives
+
+* Business Benefits
+
+* Expected Outcomes
+
+* User Types
+
+
+
+---
+
+
+
+# Key Performance Indicators (KPIs)
+
+
+
+For every module create KPI tables.
+
+
+
+Example:
+
+
+
+## 1. User Management
+
+
+
+| KPI               | Description                                        | Pass/Fail |
+
+| ----------------- | -------------------------------------------------- | --------- |
+
+| User Registration | Employees can register using corporate credentials | Pass      |
+
+| User Login        | Users can securely login                           | Pass      |
+
+
+
+Requirements:
+
+
+
+* Minimum 5 KPIs per module
+
+* Maximum 10 KPIs per module
+
+* All KPIs must be measurable
+
+* All KPIs must be testable
+
+* KPIs should act as acceptance criteria
+
+* Status should default to Pass
+
+
+
+---
+
+
+
+## Non-Functional KPIs
+
+
+
+Create KPI tables for:
+
+
+
+### Performance
+
+
+
+Examples:
+
+
+
+| KPI                 | Target      |
+
+| ------------------- | ----------- |
+
+| Page Load Time      | < 3 seconds |
+
+| API Response Time   | < 2 seconds |
+
+| Database Query Time | < 500ms     |
+
+| Concurrent Users    | 10,000+     |
+
+
+
+### Security
+
+
+
+Examples:
+
+
+
+| KPI                 | Target  |
+
+| ------------------- | ------- |
+
+| MFA Support         | Enabled |
+
+| Password Encryption | bcrypt  |
+
+| OWASP Compliance    | Pass    |
+
+
+
+### Reliability
+
+
+
+Examples:
+
+
+
+| KPI                     | Target   |
+
+| ----------------------- | -------- |
+
+| System Availability     | 99.9%    |
+
+| Backup Frequency        | Daily    |
+
+| Recovery Time Objective | < 1 hour |
+
+
+
+---
+
+
+
+## Technical Stack
+
+
+
+Recommend enterprise-grade technology stack:
+
+
+
+Frontend:
+
+
+
+* React Native
+
+* React.js
+
+* TypeScript
+
+
+
+Backend:
+
+
+
+* Node.js
+
+* NestJS
+
+
+
+Database:
+
+
+
+* Mongo DB
+
+
+
+Caching:
+
+
+
+* Redis
+
+
+
+Authentication:
+
+
+
+* OAuth2
+
+* JWT
+
+* MFA
+
+
+
+Storage:
+
+
+
+* AWS S3
+
+
+
+Notification:
+
+
+
+* Firebase
+
+* Email
+
+* SMS
+
+
+
+Reporting:
+
+
+
+* Power BI
+
+
+
+Containerization:
+
+
+
+* Docker
+
+* Kubernetes
+
+
+
+CI/CD:
+
+
+
+* GitHub Actions
+
+
+
+Monitoring:
+
+
+
+* Prometheus
+
+* Grafana
+
+
+
+Testing:
+
+
+
+* Jest
+
+* Cypress
+
+
+
+---
+
+
+
+## Development Timeline
+
+
+
+Create realistic implementation phases:
+
+
+
+Phase 1:
+
+
+
+* Requirement Analysis
+
+* Architecture Design
+
+
+
+Phase 2:
+
+
+
+* Authentication
+
+* User Management
+
+
+
+Phase 3:
+
+
+
+* Travel Management
+
+
+
+Phase 4:
+
+
+
+* Expense Management
+
+
+
+Phase 5:
+
+
+
+* Integrations
+
+
+
+Phase 6:
+
+
+
+* Testing
+
+
+
+Phase 7:
+
+
+
+* Deployment
+
+
+
+---
+
+
+
+## Success Criteria
+
+
+
+Generate 20 measurable business success criteria.
+
+
+
+Examples:
+
+
+
+* Employees can submit travel requests within 3 minutes.
+
+* Managers can approve requests within 1 minute.
+
+* Expense claims are processed within SLA.
+
+* Reimbursements are completed within 5 business days.
+
+* Policy violations are automatically detected.
+
+* Audit logs are available for every transaction.
+
+* Mobile users can complete all major workflows.
+
+* System supports 10,000+ active employees.
+
+* Reports are generated within 10 seconds.
+
+* Finance team effort is reduced by 70%.
+
+
+
+CONSTRAINTS:
+
+
+
+1. Output only markdown.
+
+2. Create a complete KPI.md document.
+
+3. Think like a Business Analyst, Product Owner, Architect, and QA Lead.
+
+4. Do not generate generic KPIs.
+
+5. Generate enterprise-level KPIs.
+
+6. Ensure every KPI is measurable and testable.
+
+7. Include both Functional and Non-Functional KPIs.
+
+8. Follow industry-standard enterprise software practices.
+
+9. Include acceptance criteria-style KPIs.
+
+10. The final document should be ready for stakeholder review and QA validation.
+
+
+
+
+
+
+
+Propmt for PRD generation
