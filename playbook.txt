@@ -873,9 +873,7 @@ Use:
 
 The final output must be suitable for saving directly as:
 
-```text
 Enterprise_Travel_Expense_PRD.md
-```
 
 ---
 
@@ -920,21 +918,15 @@ For EVERY KPI generate:
 
 #### Business Requirement
 
-```text
 BR-XXX
-```
 
 #### Functional Requirement
 
-```text
 FR-XXX
-```
 
 #### Non Functional Requirement
 
-```text
 NFR-XXX
-```
 
 #### User Story
 
@@ -978,15 +970,11 @@ If information is not available in the KPI document:
 
 Create section:
 
-```markdown
 ## Assumptions
-```
 
 Mark each item:
 
-```text
 ASSUMPTION:
-```
 
 Never invent:
 

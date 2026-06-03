@@ -34,6 +34,47 @@ Manual travel and expense processing through email, spreadsheets, and paper work
 
 ---
 
+## Technology Stack
+
+### Frontend
+- React Native (iOS & Android)
+- React.js
+- TypeScript
+- Redux Toolkit
+- React Formik with yup
+
+### Backend
+- Node.js 20 LTS
+- NestJS Framework
+- REST APIs
+- JWT Authentication
+
+### Database
+- MongoDB Atlas
+
+### Infrastructure
+- Docker
+- Kubernetes (AWS EKS)
+- Redis
+- AWS S3
+- GitHub Actions
+
+### Integrations
+- HRMS
+- SAP / Oracle ERP
+- AWS Textract OCR
+- Firebase Cloud Messaging
+- AWS SES
+
+---
+
+This updated PRD supplement explicitly includes:
+- Frontend: React Native / React
+- Backend: Node.js (NestJS)
+- Database: MongoDB
+
+---
+
 ## Stakeholders
 - Employees
 - Managers
