@@ -1327,3 +1327,23 @@ Do not stop after a few sections.
 Continue generation until all sections are completed.
 
 Ensure full traceability between KPI → Requirement → User Story → Acceptance Criteria.
+
+
+
+## 23. Master prompt project_scope.md generation
+
+@kpi.md , @prd.md by refering this create one project scope document within that you need to ensure
+ 
+// kpi points with contraints
+    // functional + non-functional requirement
+    // stopping point.
+    // in scope development portion.
+ 
+by considering this create project_scope.md.
+
+
+
+## 24. Master prompt project_boundary.md generation
+
+@PRD.md , @kpi.md  by refering this create project_boundary.md which consists the overall summary of my project with directory/folder structure.
+ 
