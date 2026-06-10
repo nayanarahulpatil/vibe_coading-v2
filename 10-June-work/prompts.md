@@ -14,3 +14,6 @@ Format: Strictly follow the format mentioned in respective file for which templa
 
 ## Development:
 Act as [react_js_persona.md] start development of the application inside 10-June-work
+
+## Workflow document generation:
+[workflow_document_template.md] using this template create Developer Handover & Workflow Document inside 10-June-work
