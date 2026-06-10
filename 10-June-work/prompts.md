@@ -17,3 +17,7 @@ Act as [react_js_persona.md] start development of the application inside 10-June
 
 ## Workflow document generation:
 [workflow_document_template.md] using this template create Developer Handover & Workflow Document inside 10-June-work
+
+
+## Prompt History generation:
+[prompt_history_tempate.md] using this template create prompt history document inside 10-June-work
