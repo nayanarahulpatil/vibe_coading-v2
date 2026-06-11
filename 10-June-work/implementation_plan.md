@@ -20,7 +20,7 @@ This plan outlines the architecture and steps to build the shared trip budget tr
 
 ### 1. Initialization
 - Run `npx -y create-vite@latest trip-budget-tracker --template react-ts` (assuming subfolder).
-- Install dependencies: `@mui/material @emotion/react @emotion/styled formik yup @mui/icons-material`.
+- Install dependencies: `@emotion/react @emotion/styled formik yup`.
 
 ### 2. Folder Structure
 - Create the enterprise structure defined in `react_js_persona.md`:
