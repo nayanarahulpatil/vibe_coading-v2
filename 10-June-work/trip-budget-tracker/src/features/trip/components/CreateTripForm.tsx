@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useAppDispatch } from '../../../hooks/store';
 import { createTrip } from '../tripSlice';
+import styles from './CreateTripForm.module.css';
 
 export const CreateTripForm: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -26,16 +27,16 @@ export const CreateTripForm: React.FC = () => {
   });
 
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-      <h2 className="text-xl font-semibold text-slate-800 mb-4">Create a New Trip</h2>
-      <form onSubmit={formik.handleSubmit} className="flex gap-4">
-        <div className="flex-1">
+    <div className={styles.container}>
+      <h2 className={styles.title}>Create a New Trip</h2>
+      <form onSubmit={formik.handleSubmit} className={styles.form}>
+        <div className={styles.inputGroup}>
           <input
             id="title"
             name="title"
             type="text"
-            className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 transition-shadow ${
-              formik.touched.title && formik.errors.title ? 'border-red-500' : 'border-slate-200'
+            className={`${styles.input} ${
+              formik.touched.title && formik.errors.title ? styles.inputError : styles.inputSuccess
             }`}
             placeholder="e.g. Weekend Gateway"
             onChange={formik.handleChange}
@@ -43,12 +44,12 @@ export const CreateTripForm: React.FC = () => {
             value={formik.values.title}
           />
           {formik.touched.title && formik.errors.title ? (
-            <div className="text-red-500 text-sm mt-1">{formik.errors.title}</div>
+            <div className={styles.errorText}>{formik.errors.title}</div>
           ) : null}
         </div>
         <button
           type="submit"
-          className="bg-primary-500 text-white px-6 py-2 rounded-lg font-medium hover:bg-indigo-600 transition-colors h-fit"
+          className={styles.submitButton}
         >
           Start Trip
         </button>

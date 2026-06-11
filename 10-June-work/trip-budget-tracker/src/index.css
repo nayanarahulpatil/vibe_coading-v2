@@ -3,9 +3,10 @@
 @theme {
   --color-primary-500: #6366f1;
   --color-secondary-500: #ec4899;
+  --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
 }
 
 body {
-  background-color: #f8fafc;
+  background-color: transparent;
   color: #0f172a;
 }

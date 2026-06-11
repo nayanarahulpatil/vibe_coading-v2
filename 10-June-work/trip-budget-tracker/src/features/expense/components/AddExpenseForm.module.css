@@ -1,0 +1,53 @@
+@reference "../../../index.css";
+
+.container {
+  @apply bg-white/60 backdrop-blur-xl p-6 rounded-3xl shadow-xl border border-white/50 mb-6 transition-all duration-300 hover:shadow-2xl hover:bg-white/70;
+}
+
+.header {
+  @apply flex items-center gap-2 mb-4 text-slate-800 font-semibold text-lg;
+}
+
+.icon {
+  @apply text-primary-500;
+}
+
+.form {
+  @apply space-y-4;
+}
+
+.label {
+  @apply block text-sm font-medium text-slate-700 mb-1;
+}
+
+.input {
+  @apply w-full px-4 py-3 border rounded-xl bg-white/70 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 shadow-inner transition-all;
+}
+
+.inputError {
+  @apply border-red-500;
+}
+
+.inputSuccess {
+  @apply border-slate-200;
+}
+
+.errorText {
+  @apply text-red-500 text-sm mt-1;
+}
+
+.row {
+  @apply flex gap-4;
+}
+
+.col1 {
+  @apply flex-1;
+}
+
+.col2 {
+  @apply flex-2 w-full;
+}
+
+.submitButton {
+  @apply w-full bg-gradient-to-r from-secondary-500 to-pink-600 text-white px-6 py-3.5 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all mt-4;
+}

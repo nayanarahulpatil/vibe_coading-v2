@@ -6,7 +6,7 @@ Act as a Senior React Architect with 15+ years of experience building enterprise
 
 ## Tech Stack
 
-* React, TypeScript, Formik + Yup, Material UI, Jest, React Testing Library
+* React, TypeScript, Formik + Yup, Tailwind CSS, Jest, React Testing Library
 
 ## Project Structure
 

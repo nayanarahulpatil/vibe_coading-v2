@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import { useAppDispatch, useAppSelector } from '../../../hooks/store';
 import { addExpense } from '../../trip/tripSlice';
 import { Receipt } from 'lucide-react';
+import styles from './AddExpenseForm.module.css';
 
 export const AddExpenseForm: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -42,20 +43,20 @@ export const AddExpenseForm: React.FC = () => {
   }
 
   return (
-    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 mb-6">
-      <div className="flex items-center gap-2 mb-4 text-slate-800 font-semibold text-lg">
-        <Receipt size={20} className="text-primary-500" />
+    <div className={styles.container}>
+      <div className={styles.header}>
+        <Receipt size={20} className={styles.icon} />
         <h2>Add an Expense</h2>
       </div>
 
-      <form onSubmit={formik.handleSubmit} className="space-y-4">
+      <form onSubmit={formik.handleSubmit} className={styles.form}>
         <div>
-          <label className="block text-sm font-medium text-slate-700 mb-1">Who paid?</label>
+          <label className={styles.label}>Who paid?</label>
           <select
             id="payerId"
             name="payerId"
-            className={`w-full px-4 py-2 border rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-primary-500 ${
-              formik.touched.payerId && formik.errors.payerId ? 'border-red-500' : 'border-slate-200'
+            className={`${styles.input} ${
+              formik.touched.payerId && formik.errors.payerId ? styles.inputError : styles.inputSuccess
             }`}
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
@@ -69,19 +70,19 @@ export const AddExpenseForm: React.FC = () => {
             ))}
           </select>
           {formik.touched.payerId && formik.errors.payerId ? (
-            <div className="text-red-500 text-sm mt-1">{formik.errors.payerId}</div>
+            <div className={styles.errorText}>{formik.errors.payerId}</div>
           ) : null}
         </div>
 
-        <div className="flex gap-4">
-          <div className="flex-1">
-            <label className="block text-sm font-medium text-slate-700 mb-1">Amount ($)</label>
+        <div className={styles.row}>
+          <div className={styles.col1}>
+            <label className={styles.label}>Amount ($)</label>
             <input
               id="amount"
               name="amount"
               type="text"
-              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 ${
-                formik.touched.amount && formik.errors.amount ? 'border-red-500' : 'border-slate-200'
+              className={`${styles.input} ${
+                formik.touched.amount && formik.errors.amount ? styles.inputError : styles.inputSuccess
               }`}
               placeholder="0.00"
               onChange={formik.handleChange}
@@ -89,18 +90,18 @@ export const AddExpenseForm: React.FC = () => {
               value={formik.values.amount}
             />
             {formik.touched.amount && formik.errors.amount ? (
-              <div className="text-red-500 text-sm mt-1">{formik.errors.amount}</div>
+              <div className={styles.errorText}>{formik.errors.amount}</div>
             ) : null}
           </div>
 
-          <div className="flex-2 w-full">
-            <label className="block text-sm font-medium text-slate-700 mb-1">For what?</label>
+          <div className={styles.col2}>
+            <label className={styles.label}>For what?</label>
             <input
               id="description"
               name="description"
               type="text"
-              className={`w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 ${
-                formik.touched.description && formik.errors.description ? 'border-red-500' : 'border-slate-200'
+              className={`${styles.input} ${
+                formik.touched.description && formik.errors.description ? styles.inputError : styles.inputSuccess
               }`}
               placeholder="e.g. Dinner, Gas"
               onChange={formik.handleChange}
@@ -108,14 +109,14 @@ export const AddExpenseForm: React.FC = () => {
               value={formik.values.description}
             />
             {formik.touched.description && formik.errors.description ? (
-              <div className="text-red-500 text-sm mt-1">{formik.errors.description}</div>
+              <div className={styles.errorText}>{formik.errors.description}</div>
             ) : null}
           </div>
         </div>
 
         <button
           type="submit"
-          className="w-full bg-secondary-500 text-white px-6 py-3 rounded-lg font-medium hover:bg-pink-600 transition-colors mt-2"
+          className={styles.submitButton}
         >
           Save Expense
         </button>

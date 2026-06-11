@@ -3,6 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useAppDispatch } from '../../../hooks/store';
 import { addMember } from '../tripSlice';
+import styles from './AddMemberForm.module.css';
 
 export const AddMemberForm: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -26,14 +27,14 @@ export const AddMemberForm: React.FC = () => {
   });
 
   return (
-    <form onSubmit={formik.handleSubmit} className="flex gap-2 mt-4">
-      <div className="flex-1">
+    <form onSubmit={formik.handleSubmit} className={styles.form}>
+      <div className={styles.inputGroup}>
         <input
           id="name"
           name="name"
           type="text"
-          className={`w-full px-3 py-2 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 ${
-            formik.touched.name && formik.errors.name ? 'border-red-500' : 'border-slate-200'
+          className={`${styles.input} ${
+            formik.touched.name && formik.errors.name ? styles.inputError : styles.inputSuccess
           }`}
           placeholder="Add a person"
           onChange={formik.handleChange}
@@ -41,12 +42,12 @@ export const AddMemberForm: React.FC = () => {
           value={formik.values.name}
         />
         {formik.touched.name && formik.errors.name ? (
-          <div className="text-red-500 text-xs mt-1">{formik.errors.name}</div>
+          <div className={styles.errorText}>{formik.errors.name}</div>
         ) : null}
       </div>
       <button
         type="submit"
-        className="bg-slate-800 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-slate-700 transition-colors h-fit"
+        className={styles.submitButton}
       >
         Add
       </button>

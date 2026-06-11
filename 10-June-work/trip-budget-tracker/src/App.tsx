@@ -1,4 +1,4 @@
-
+import styles from './App.module.css';
 import { TripDashboard } from './features/trip/components/TripDashboard';
 import { AddExpenseForm } from './features/expense/components/AddExpenseForm';
 import { RunningBalancesList } from './features/balance/components/RunningBalancesList';
@@ -12,21 +12,21 @@ function App() {
   const dispatch = useAppDispatch();
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800 font-sans pb-12">
+    <div className={styles.container}>
       {/* Header */}
-      <header className="bg-white border-b border-slate-200 sticky top-0 z-10 shadow-sm">
-        <div className="max-w-3xl mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center text-white font-bold">
+      <header className={styles.header}>
+        <div className={styles.headerInner}>
+          <div className={styles.logoContainer}>
+            <div className={styles.logo}>
               T
             </div>
-            <h1 className="text-xl font-bold text-slate-900 tracking-tight">Trip Budget Tracker</h1>
+            <h1 className={styles.title}>Trip Budget Tracker</h1>
           </div>
           
           {currentTrip && (
             <button 
               onClick={() => dispatch(clearTrip())}
-              className="text-sm font-medium text-slate-500 hover:text-slate-800 transition-colors flex items-center gap-1 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-full"
+              className={styles.leaveButton}
             >
               <LogOut size={14} />
               <span>Leave Trip</span>
@@ -36,14 +36,14 @@ function App() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-3xl mx-auto px-4 mt-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-6">
+      <main className={styles.mainContent}>
+        <div className={styles.grid}>
+          <div className={styles.column}>
             <TripDashboard />
             <AddExpenseForm />
           </div>
           
-          <div className="space-y-6">
+          <div className={styles.column}>
             {currentTrip && currentTrip.members.length > 0 && (
               <>
                 <RunningBalancesList />
