@@ -17,6 +17,7 @@ export const useCalculateBalances = () => {
 
   const { members, expenses } = currentTrip;
   
+  // Total expenses aggregated in the trip's base currency (exp.amount is converted)
   const totalExpense = expenses.reduce((sum, exp) => sum + exp.amount, 0);
   const fairShare = totalExpense / members.length;
 

@@ -13,12 +13,13 @@ const tripSlice = createSlice({
   name: 'trip',
   initialState,
   reducers: {
-    createTrip: (state, action: PayloadAction<{ id: string; title: string; members: Member[] }>) => {
+    createTrip: (state, action: PayloadAction<{ id: string; title: string; members: Member[]; baseCurrency: string }>) => {
       state.currentTrip = {
         id: action.payload.id,
         title: action.payload.title,
         members: action.payload.members,
         expenses: [],
+        baseCurrency: action.payload.baseCurrency,
       };
     },
     addMember: (state, action: PayloadAction<Member>) => {

@@ -1,0 +1,99 @@
+# Implementation Plan — Tailwind CSS Migration
+
+This plan outlines the design system and steps to migrate the Trip Budget Tracker UI from CSS Modules to pure Tailwind CSS utility classes, implementing a unified, responsive dark-mode-first aesthetic with glassmorphism cards and HSL tokens.
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Dark Mode by Default:** The application theme will change to a dark slate background (`bg-slate-950` / `hsl(222 47% 8%)`) with light typography (`text-slate-100`). Cards will utilize semi-transparent glassmorphism styling (`bg-slate-900/40 backdrop-blur-xl border border-slate-800/80`).
+> 
+> **CSS Module Deletion:** All `.module.css` and `.css` (except `index.css`) files will be deleted upon successful migration to keep the codebase clean.
+
+## Open Questions
+
+> [!WARNING]
+> 1. **HSL Theme Palette:** Do you have specific HSL values for the brand colors, or should we use standard curated Tailwind colors aligned with the HSL tokens? (We will define default HSL tokens for primary, secondary, emerald, amber, and purple in `index.css`).
+
+---
+
+## Proposed Changes
+
+### 1. Global Styles System (`src/index.css`)
+
+#### [MODIFY] [index.css](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/src/index.css)
+- Define brand colors using HSL tokens inside the Tailwind `@theme` block.
+- Set default body style to dark background (`bg-slate-950`) and text color (`text-slate-200`).
+- Remove legacy styling.
+
+---
+
+### 2. Layout & Header (`src/App.tsx`)
+
+#### [MODIFY] [App.tsx](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/src/App.tsx)
+- Replace `styles.*` imports with Tailwind classes.
+- Header: Glassmorphism (`bg-slate-950/40 backdrop-blur-md border-b border-slate-900`).
+- Grid layout: Single-column on mobile, responsive two-column layout on medium (`md:`) screens and above.
+
+---
+
+### 3. Trip & Member components (`src/features/trip/components/`)
+
+#### [MODIFY] [CreateTripForm.tsx](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/src/features/trip/components/CreateTripForm.tsx)
+- Upgrade layout with glassmorphism cards and smooth scale transitions on hover/focus.
+- Input validation: Red highlight and subtle red ring on error.
+
+#### [MODIFY] [AddMemberForm.tsx](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/src/features/trip/components/AddMemberForm.tsx)
+- Multi-field stacked/row layout with dark inputs and high-contrast validation.
+
+#### [MODIFY] [TripDashboard.tsx](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/src/features/trip/components/TripDashboard.tsx)
+- Stylized member chips and export button with hover transitions.
+
+---
+
+### 4. Expense Entry component (`src/features/expense/components/`)
+
+#### [MODIFY] [AddExpenseForm.tsx](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/src/features/expense/components/AddExpenseForm.tsx)
+- Dark drop-downs and inputs.
+- Camera and file upload container with interactive hover animation.
+
+---
+
+### 5. Balances & Settlements components (`src/features/balance/components/`)
+
+#### [MODIFY] [RunningBalancesList.tsx](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/src/features/balance/components/RunningBalancesList.tsx)
+- High-contrast balance list with color indicators (emerald for positive, red for negative).
+
+#### [MODIFY] [CategoryPieChart.tsx](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/src/features/balance/components/CategoryPieChart.tsx)
+- Chart legend and responsive alignment.
+
+#### [MODIFY] [SettleUpSummary.tsx](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/src/features/balance/components/SettleUpSummary.tsx)
+- Action buttons styled as prominent indigo/amber payment badges.
+
+#### [MODIFY] [TripSummaryReport.tsx](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/src/features/balance/components/TripSummaryReport.tsx)
+- Ensure print formatting styles remain intact and correct under `@media print` when hiding screen elements.
+
+---
+
+### 6. Cleanup of Legacy Styling Files
+
+#### [DELETE] Legacy Styles
+- `src/App.css`
+- `src/App.module.css`
+- `src/features/trip/components/AddMemberForm.module.css`
+- `src/features/trip/components/CreateTripForm.module.css`
+- `src/features/trip/components/TripDashboard.module.css`
+- `src/features/expense/components/AddExpenseForm.module.css`
+- `src/features/balance/components/RunningBalancesList.module.css`
+- `src/features/balance/components/SettleUpSummary.module.css`
+- `src/features/balance/components/CategoryPieChart.module.css`
+- `src/features/balance/components/TripSummaryReport.module.css`
+
+---
+
+## Verification Plan
+
+### Automated Tests
+- None.
+
+### Manual Verification
+- We will visually verify the dark mode layout, HSL color vibrancy, responsive grids, and print summary report inside the browser after migration is completed.

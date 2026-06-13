@@ -1,0 +1,38 @@
+# Walkthrough — Fintech Light Theme Redesign
+
+I have refactored the Trip Budget Tracker UI from dark mode / glassmorphism to a premium, high-contrast fintech light theme (inspired by modern interfaces like Stripe and Wise).
+
+## Changes Made
+
+### 1. Global Theme System (`src/index.css`)
+- Refactored HSL variables optimized for high-contrast light mode.
+- Replaced the dark background with a warm slate-50 canvas (`bg-slate-50`) and dark text (`text-slate-800`).
+
+### 2. Layout & Header (`src/App.tsx`)
+- Refactored the sticky header to a clean white container with backdrop blur and delicate borders (`bg-white/80 backdrop-blur-md border-b border-slate-200/60`).
+- Switched titles and subtext to deep slate coloring.
+
+### 3. Trip Forms & Dashboard (`src/features/trip/components/`)
+- **Cards:** Refactored dark glassmorphism containers to solid white cards (`bg-white border-slate-200/80 rounded-3xl shadow-sm hover:shadow-md`).
+- **Inputs:** Set backgrounds to soft slate (`bg-slate-50/50 focus:bg-white`) with light gray borders (`border-slate-200`).
+- **Pills:** Stylized member lists as subtle slate pills (`bg-slate-50 hover:bg-slate-100/80 text-slate-700`).
+
+### 4. Expense Form (`src/features/expense/components/AddExpenseForm.tsx`)
+- Redesigned inputs and currency selects to matching clean border and background attributes.
+- Stylized the camera camera/file selector wrapper using soft gray colors.
+
+### 5. Running Balances (`src/features/balance/components/RunningBalancesList.tsx`)
+- Refactored negative balances to rose-600 (`text-rose-600`) and positive balances to emerald-600 (`text-emerald-650`) for premium contrast.
+
+### 6. Pie Chart (`src/features/balance/components/CategoryPieChart.tsx`)
+- Set the center donut hole to a pure white background (`bg-white`) to fit the light canvas seamlessly.
+
+### 7. Settle Up (`src/features/balance/components/SettleUpSummary.tsx`)
+- Framed transaction rows as soft-tinted cards (`bg-emerald-50/20 to-teal-50/20 border-emerald-100/40`).
+- Payment badges remained styled as prominent indigo/amber button anchors.
+
+---
+
+## Verification & Testing
+- Layout renders as a clean light-mode application.
+- All form inputs, validation checks, deep-links, and report layouts preserve business logic.

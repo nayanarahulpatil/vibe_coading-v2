@@ -1,12 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
 @import "tailwindcss";
 
 @theme {
-  --color-primary-500: #6366f1;
-  --color-secondary-500: #ec4899;
+  --color-primary: hsl(243 75% 59%);      /* Stripe Indigo equivalent */
+  --color-secondary: hsl(330 81% 50%);    /* Coral Pink */
+  --color-accent-green: hsl(162 72% 30%); /* Wise Green equivalent (High-contrast) */
+  --color-accent-amber: hsl(38 92% 44%);  /* Premium Gold/Amber */
+  --color-accent-purple: hsl(262 83% 58%);/* Category Purple */
+  --color-light-bg: hsl(210 40% 98%);     /* Clean, Slate-50 background */
   --font-sans: "Outfit", ui-sans-serif, system-ui, sans-serif;
 }
 
 body {
-  background-color: transparent;
-  color: #0f172a;
+  background-color: var(--color-light-bg);
+  color: hsl(215 28% 17%); /* Deep Slate-800 text */
+  font-family: var(--font-sans);
+  overflow-x: hidden;
 }

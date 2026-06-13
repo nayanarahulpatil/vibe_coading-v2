@@ -1,0 +1,95 @@
+# Implementation Plan — Trip Budget Tracker v2 Upgrade
+
+This document outlines the design and implementation steps for upgrading the client-side Trip Budget Tracker with new features: multi-currency support with live FX rates, receipt photo attachments, UPI/PayPal deep-link settlement, expense category visualization, and PDF summary export.
+
+## User Review Required
+
+> [!IMPORTANT]
+> **UPI & PayPal VPAs/Usernames:** For deep-links to succeed, payees must have UPI IDs (VPAs) and PayPal usernames. We plan to update the `AddMemberForm` to include optional fields for these so that the settlement engine can build correct links.
+> 
+> **Package Installations:** We need to install `jspdf` to generate the PDF report, and `canvas-confetti` (optional) or use standard HTML/SVG for the pie chart. We will request your approval to run `npm install jspdf` during execution.
+
+## Open Questions
+
+> [!WARNING]
+> 1. **Redux Persistence:** Since the app resets on reload, should we implement simple `localStorage` synchronization for the Redux store to avoid losing active trips and receipt photo attachments?
+> 2. **Live FX API Key:** To prevent key exposure as per PRD security guidelines, we will use a keyless public currency API (`https://open.er-api.com/v6/latest/`) directly from the browser. Is this approach approved?
+
+---
+
+## Proposed Changes
+
+### 1. Types Layer (`src/types/index.ts`)
+
+#### [MODIFY] [index.ts](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/src/types/index.ts)
+- Update `Member` to include optional `upiId` and `paypalUsername`.
+- Update `Expense` to include `category`, `currency`, `amountOriginal`, `fxRate`, and optional `receiptPhotoUrl` (stored as base64).
+- Update `Trip` to include `baseCurrency`.
+
+---
+
+### 2. State & Store (`src/features/trip/tripSlice.ts` and `src/store/index.ts`)
+
+#### [MODIFY] [tripSlice.ts](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/src/features/trip/tripSlice.ts)
+- Modify `createTrip` payload to require `baseCurrency`.
+- Update `addMember` to accept optional UPI ID and PayPal Username.
+- Update `addExpense` to accept the new currency, category, and receipt photo fields.
+- Add local storage persistence hooks inside `src/store/index.ts` to automatically save and load the trip state.
+
+---
+
+### 3. Currency Engine / Services (`src/services/currencyService.ts` [NEW])
+
+#### [NEW] [currencyService.ts](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/src/services/currencyService.ts)
+- Create a service to fetch live rates relative to the base currency.
+- Save fetched rates in `localStorage` with a timestamp TTL of 24 hours.
+- Provide a fallback mechanism to use cached rates if offline/failed, showing a warning with the cache date, and blocking saves if the cache is > 24 hours old.
+
+---
+
+### 4. Forms & UI Components (`src/features/` & `src/App.tsx`)
+
+#### [MODIFY] [CreateTripForm.tsx](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/src/features/trip/components/CreateTripForm.tsx)
+- Add base currency dropdown field (validated via Yup, defaults to USD).
+
+#### [MODIFY] [AddMemberForm.tsx](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/src/features/trip/components/AddMemberForm.tsx)
+- Add optional input fields for UPI ID (VPA) and PayPal Username.
+
+#### [MODIFY] [AddExpenseForm.tsx](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/src/features/expense/components/AddExpenseForm.tsx)
+- Add category dropdown (Food, Transport, Accommodation, Entertainment, Other).
+- Add currency picker dropdown (sends API request for exchange rates on change).
+- Add receipt file input field (validate: format JPEG/PNG/HEIC, size ≤ 10MB, converts to Base64).
+- Display a warning if the exchange rate is offline/cached.
+
+#### [MODIFY] [SettleUpSummary.tsx](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/src/features/balance/components/SettleUpSummary.tsx)
+- Render deep-link payment buttons ("Pay via UPI", "Pay via PayPal") next to debt rows if the payee has VPA/username configured.
+- Construct correct URL schemes: `upi://pay?pa=...` and `https://paypal.me/...`.
+
+#### [NEW] [CategoryPieChart.tsx](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/src/features/balance/components/CategoryPieChart.tsx)
+- Aggregate expenses in base currency by category.
+- Render an interactive SVG/conic-gradient pie chart with percentage labels and total spend list.
+
+---
+
+### 5. PDF Export Feature (`src/utils/pdfExport.ts` [NEW])
+
+#### [NEW] [pdfExport.ts](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/src/utils/pdfExport.ts)
+- Construct PDF payload containing trip title, dates, members, detailed expenses, and settle-up balances using `jspdf`.
+- Add an "Export PDF" button on the trip dashboard. Disable it if there are 0 expenses.
+
+---
+
+## Verification Plan
+
+### Automated Tests
+- Since Jest is not configured in the template project yet, we will verify the code syntax and structure via Vite typechecking:
+  - `npm run build` to run TypeScript compiler check.
+
+### Manual Verification
+1. **Trip Creation:** Create a trip using INR as the base currency.
+2. **Member Addition:** Add Alice (with UPI/PayPal accounts) and Bob.
+3. **Expense Entry & FX Fetch:** Add a USD expense for Bob, verify the conversion rate fetches, converts correctly to INR, and updates balances.
+4. **Receipt Upload:** Upload a PNG receipt, confirm size constraints error out on large files, and thumbnail renders on the dashboard.
+5. **Pie Chart:** Confirm category segmentation and tooltip figures.
+6. **Payment Deep-links:** Tap the UPI/PayPal buttons, verify the prefilled URL structure.
+7. **PDF Export:** Click "Export PDF" and verify the downloaded file layout.

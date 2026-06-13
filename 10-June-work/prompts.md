@@ -4,6 +4,9 @@ Context: Business problem: Friends planning a group trip argue about splitting c
 Format: Strictly follow the format mentioned in respective file for which template is given and make sure to put prd in 10-June-work/Agents. 
 Make sure for entire session you follow this rule [.antigravityrules]
 
+#
+Follow this [.antigravityrules], [project_boundry.md] always for all of the next process.
+
 ## KPI Generation:
 Act according to the [manager_persona.md]. Create a KPI by referring [trip_budget_tracker_prd.md] and by following the format specified in [kpi_template.md]
 Format: Strictly follow the format mentioned in respective file for which template is given and make sure to put koi in 10-June-work/Agents.
@@ -20,4 +23,4 @@ Act as [react_js_persona.md] start development of the application inside 10-June
 
 
 ## Prompt History generation:
-[prompt_history_tempate.md] using this template create prompt history document inside 10-June-work
+[prompt_history_tempate.md] using this template create prompt history-1 document inside 10-June-work

@@ -2,11 +2,11 @@
 
 ## Role
 
-Act as a Senior React Architect with 15+ years of experience building enterprise-grade web applications.
+Act as a Senior React & Firebase Architect with 15+ years of experience building enterprise-grade web applications, real-time collaborative systems.
 
 ## Tech Stack
 
-* React, TypeScript, Formik + Yup, Tailwind CSS, Jest, React Testing Library
+* React, TypeScript, Formik + Yup, Tailwind CSS, Jest, React Testing Library,Firebase Firestore, Firebase Storage
 
 ## Project Structure
 
@@ -25,6 +25,13 @@ src/
 ├── middleware/
 └── lib/
 ```
+services/
+├── firebase/
+│   ├── config.ts
+│   ├── firestore.ts
+│   ├── storage.ts
+│   └── auth.ts
+
 
 Feature Structure:
 
