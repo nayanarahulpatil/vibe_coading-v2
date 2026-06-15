@@ -3,7 +3,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useAppDispatch, useAppSelector } from '../../../hooks/store';
 import { addExpense } from '../../trip/tripSlice';
-import { Receipt, Camera, AlertCircle } from 'lucide-react';
+import { Receipt, Camera, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { fetchRates, convertToBaseCurrency, SUPPORTED_CURRENCIES } from '../../../services/currencyService';
 
 export const AddExpenseForm: React.FC = () => {
@@ -18,6 +18,18 @@ export const AddExpenseForm: React.FC = () => {
 
   const [photoError, setPhotoError] = React.useState<string | null>(null);
   const [photoBase64, setPhotoBase64] = React.useState<string | null>(null);
+
+  const [showToast, setShowToast] = React.useState<boolean>(false);
+  const [toastHasReceipt, setToastHasReceipt] = React.useState<boolean>(false);
+  const toastTimeoutRef = React.useRef<NodeJS.Timeout | null>(null);
+
+  React.useEffect(() => {
+    return () => {
+      if (toastTimeoutRef.current) {
+        clearTimeout(toastTimeoutRef.current);
+      }
+    };
+  }, []);
 
   React.useEffect(() => {
     if (!currentTrip?.baseCurrency) return;
@@ -134,6 +146,15 @@ export const AddExpenseForm: React.FC = () => {
           })
         );
 
+        if (toastTimeoutRef.current) {
+          clearTimeout(toastTimeoutRef.current);
+        }
+        setToastHasReceipt(!!photoBase64);
+        setShowToast(true);
+        toastTimeoutRef.current = setTimeout(() => {
+          setShowToast(false);
+        }, 3000);
+
         resetForm();
         setPhotoBase64(null);
         const fileInput = document.getElementById('receiptPhoto') as HTMLInputElement;
@@ -149,7 +170,8 @@ export const AddExpenseForm: React.FC = () => {
   }
 
   return (
-    <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-200/80 mt-6 transition-all duration-300 hover:shadow-md">
+    <>
+      <div className="bg-white p-6 rounded-3xl shadow-sm border border-slate-200/80 mt-6 transition-all duration-300 hover:shadow-md">
       <div className="flex items-center gap-2.5 mb-5 text-slate-800 font-bold text-lg">
         <Receipt size={20} className="text-secondary" />
         <h2>Add an Expense</h2>
@@ -335,5 +357,19 @@ export const AddExpenseForm: React.FC = () => {
         </button>
       </form>
     </div>
-  );
+
+    {/* Success Toast */}
+    {showToast && (
+      <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2.5 bg-emerald-600 text-white px-4.5 py-3 rounded-2xl shadow-xl shadow-emerald-900/10 border border-emerald-500/20 animate-in slide-in-from-bottom-5 duration-300 text-sm font-semibold select-none">
+        <CheckCircle2 size={16} className="text-white shrink-0" />
+        <span>Expense saved successfully!</span>
+        {toastHasReceipt && (
+          <span className="flex items-center gap-0.5 bg-emerald-700/60 text-[10px] text-emerald-100 font-bold uppercase px-1.5 py-0.5 rounded-lg border border-emerald-500/20 ml-1">
+            📎 Receipt
+          </span>
+        )}
+      </div>
+    )}
+  </>
+);
 };

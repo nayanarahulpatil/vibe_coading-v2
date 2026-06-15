@@ -1,5 +1,6 @@
 import { TripDashboard } from './features/trip/components/TripDashboard';
 import { AddExpenseForm } from './features/expense/components/AddExpenseForm';
+import { ExpenseList } from './features/expense/components/ExpenseList';
 import { RunningBalancesList } from './features/balance/components/RunningBalancesList';
 import { SettleUpSummary } from './features/balance/components/SettleUpSummary';
 import { CategoryPieChart } from './features/balance/components/CategoryPieChart';
@@ -52,6 +53,7 @@ function App() {
             <div className="space-y-6">
               <TripDashboard />
               <AddExpenseForm />
+              {currentTrip && currentTrip.members.length > 0 && <ExpenseList />}
             </div>
 
             <div className="space-y-6">
