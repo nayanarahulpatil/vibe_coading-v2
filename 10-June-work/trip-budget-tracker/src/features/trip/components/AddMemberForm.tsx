@@ -15,16 +15,36 @@ export const AddMemberForm: React.FC = () => {
     },
     validationSchema: Yup.object({
       name: Yup.string().required('Name is required').min(2, 'Too Short!'),
-      upiId: Yup.string(),
-      paypalUsername: Yup.string(),
+      upiId: Yup.string().matches(
+        /^[a-zA-Z0-9.\-_]{2,256}@[a-zA-Z0-9.\-_]{2,64}$/,
+        {
+          message: 'Invalid UPI ID format (e.g. name@bank)',
+          excludeEmptyString: true,
+        }
+      ),
+      paypalUsername: Yup.string().matches(
+        /^([a-zA-Z0-9.\-_]{2,30}|@?[a-zA-Z0-9.\-_]{2,30}|(https?:\/\/)?(www\.)?paypal\.me\/[a-zA-Z0-9.\-_]{2,30})$/i,
+        {
+          message: 'Invalid PayPal username or paypal.me link',
+          excludeEmptyString: true,
+        }
+      ),
     }),
     onSubmit: (values, { resetForm }) => {
+      let cleanPaypal = values.paypalUsername ? values.paypalUsername.trim() : '';
+      if (cleanPaypal) {
+        if (cleanPaypal.startsWith('@')) {
+          cleanPaypal = cleanPaypal.slice(1);
+        }
+        cleanPaypal = cleanPaypal.replace(/^(https?:\/\/)?(www\.)?paypal\.me\//i, '');
+      }
+
       dispatch(
         addMember({
           id: crypto.randomUUID(),
           name: values.name,
           upiId: values.upiId ? values.upiId.trim() : undefined,
-          paypalUsername: values.paypalUsername ? values.paypalUsername.trim() : undefined,
+          paypalUsername: cleanPaypal || undefined,
         })
       );
       resetForm();

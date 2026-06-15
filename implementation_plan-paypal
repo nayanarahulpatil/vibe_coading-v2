@@ -1,0 +1,66 @@
+# Implementation Plan — Settlement via UPI/PayPal Deep-link
+
+This plan outlines the approach to verify, refine, and support UPI and PayPal deep-link settlement options in the "Settle Up Summary" section of the **Trip Budget Tracker**.
+
+## Current State Analysis
+
+Based on the codebase analysis of `10-June-work/trip-budget-tracker`, we found the following state:
+
+1. **Types Layer** ([types/index.ts](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/src/types/index.ts)):
+   - `Member` interface already declares optional `upiId?: string;` and `paypalUsername?: string;` fields.
+2. **Member Input** ([AddMemberForm.tsx](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/src/features/trip/components/AddMemberForm.tsx)):
+   - Formik initial values, validation schemas, and text inputs are already present for both `upiId` and `paypalUsername`.
+3. **Debt / Settle Up Summary** ([SettleUpSummary.tsx](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/src/features/balance/components/SettleUpSummary.tsx)):
+   - Prefilled URL utilities exist:
+     - `getUpiLink` (generates `upi://pay?pa=...`)
+     - `getPaypalLink` (generates `https://www.paypal.me/...`)
+   - Conditional payment action buttons ("Pay via UPI" and "PayPal Me") are rendered if the payee (creditor) has those fields configured.
+
+## Documented Assumptions
+
+1. **Feature Coverage:** Since both input collection and link-generating buttons already exist in the codebase, the main task is to verify their exact compatibility, ensure validation logic prevents malformed entries, and format the deep-links correctly.
+2. **Device Behavior:** `upi://` is primarily a mobile deep-link intent. It is expected to work on mobile browsers or apps that have a registered UPI payment handler. On desktop, this will fail silently or request application selection, which is a known and accepted limitation under PRD section 7.
+3. **Format Standards:**
+   - **UPI VPA:** Must follow standard virtual payment address syntax (e.g., `username@bankname`).
+   - **PayPal Username:** Must be a valid PayPal.me slug (alphanumeric and underscores).
+
+## Proposed Refinements
+
+While the logic is already present, we can add improvements to validation and robustness:
+
+### 1. Form Validation Refinement
+
+#### [MODIFY] [AddMemberForm.tsx](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/src/features/trip/components/AddMemberForm.tsx)
+- Enhance the `Yup` schema for member creation to validate:
+  - `upiId`: Check format against a standard VPA regex pattern (`^[a-zA-Z0-9.\-_]{2,256}@[a-zA-Z]{2,64}$`).
+  - `paypalUsername`: Validate format to ensure it is alphanumeric or allows only standard characters.
+
+---
+
+### 2. Settle Up Link Review
+
+#### [MODIFY] [SettleUpSummary.tsx](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/src/features/balance/components/SettleUpSummary.tsx)
+- Ensure link formatting uses standard parameters.
+  - `upi://pay?pa=${upiId}&pn=${encodeURIComponent(payeeName)}&am=${amount.toFixed(2)}&cu=${baseCurrency}`
+  - `https://www.paypal.me/${username}/${amount.toFixed(2)}`
+- Verify that these values correctly reflect the base currency and converted amount.
+
+---
+
+## Verification Plan
+
+### Automated Tests
+- Run Vite build to ensure no TypeScript compilation or type checking errors:
+  ```powershell
+  npm run build
+  ```
+
+### Manual Verification
+1. **Validation Checks:** Try to add a member with an invalid UPI VPA format (e.g., `invalidvpa`) and confirm the form validation catches it.
+2. **Add Valid Members:** Add a member with a valid UPI ID (`alice@okhdfc`) and a PayPal handle (`alice123`).
+3. **Trigger Debt:** Create an expense where Bob owes Alice money.
+4. **Inspect Buttons:**
+   - Verify that both "Pay via UPI" and "PayPal Me" buttons appear in the "Settle Up Summary" card.
+   - Inspect the anchor `href` values in the browser developer tools to verify they match:
+     - `upi://pay?pa=alice@okhdfc&pn=Alice&am=...&cu=...`
+     - `https://www.paypal.me/alice123/...`

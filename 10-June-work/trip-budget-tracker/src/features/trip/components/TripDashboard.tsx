@@ -53,14 +53,23 @@ export const TripDashboard: React.FC = () => {
         </div>
 
         <div className="flex flex-wrap gap-2 mb-4">
-          {currentTrip.members.map((member) => (
-            <div
-              key={member.id}
-              className="bg-white border border-slate-200/80 px-4 py-1.5 rounded-full text-xs font-semibold text-slate-700 shadow-sm hover:shadow hover:border-slate-300 hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-default select-none"
-            >
-              {member.name}
-            </div>
-          ))}
+          {currentTrip.members.map((member) => {
+            const hasHandles = member.upiId || member.paypalUsername;
+            return (
+              <div
+                key={member.id}
+                className="bg-white border border-slate-200/80 px-4 py-1.5 rounded-full text-xs font-semibold text-slate-700 shadow-sm hover:shadow hover:border-slate-300 hover:-translate-y-0.5 active:translate-y-0 transition-all cursor-default select-none flex items-center gap-1.5"
+                title={`${member.name}${member.upiId ? `\nUPI: ${member.upiId}` : ''}${member.paypalUsername ? `\nPayPal: ${member.paypalUsername}` : ''}`}
+              >
+                <span>{member.name}</span>
+                {hasHandles && (
+                  <span className="text-[9px] text-slate-400 font-normal">
+                    ({[member.upiId && 'UPI', member.paypalUsername && 'PayPal'].filter(Boolean).join('/')})
+                  </span>
+                )}
+              </div>
+            );
+          })}
           {currentTrip.members.length === 0 && (
             <p className="text-sm text-slate-400 italic">No members added yet.</p>
           )}
