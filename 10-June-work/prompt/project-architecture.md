@@ -1,0 +1,1 @@
+Act as @[personas/frontend_persona.md]  and @[personas/backend_persona.md]  . Using @[agent]  create project structure/arhitecture only for backend and frontend
