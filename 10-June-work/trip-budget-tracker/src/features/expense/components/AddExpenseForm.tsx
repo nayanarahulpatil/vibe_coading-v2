@@ -2,7 +2,9 @@ import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useAppDispatch, useAppSelector } from '../../../hooks/store';
-import { addExpense } from '../../trip/tripSlice';
+import { addExpenseLocal } from '../../trip/tripSlice';
+import { tripApi } from '../../../services/tripApi';
+import { ApiError } from '../../../services/apiClient';
 import { Receipt, Camera, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { fetchRates, convertToBaseCurrency, SUPPORTED_CURRENCIES } from '../../../services/currencyService';
 
@@ -17,7 +19,10 @@ export const AddExpenseForm: React.FC = () => {
   const [isLoadingRates, setIsLoadingRates] = React.useState<boolean>(false);
 
   const [photoError, setPhotoError] = React.useState<string | null>(null);
-  const [photoBase64, setPhotoBase64] = React.useState<string | null>(null);
+  const [photoPreview, setPhotoPreview] = React.useState<string | null>(null);
+  const [receiptFile, setReceiptFile] = React.useState<File | null>(null);
+  const [submitError, setSubmitError] = React.useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const [showToast, setShowToast] = React.useState<boolean>(false);
   const [toastHasReceipt, setToastHasReceipt] = React.useState<boolean>(false);
@@ -57,7 +62,8 @@ export const AddExpenseForm: React.FC = () => {
     setPhotoError(null);
     const file = e.target.files?.[0];
     if (!file) {
-      setPhotoBase64(null);
+      setPhotoPreview(null);
+      setReceiptFile(null);
       return;
     }
 
@@ -75,9 +81,10 @@ export const AddExpenseForm: React.FC = () => {
       return;
     }
 
+    setReceiptFile(file);
     const reader = new FileReader();
     reader.onloadend = () => {
-      setPhotoBase64(reader.result as string);
+      setPhotoPreview(reader.result as string);
     };
     reader.readAsDataURL(file);
   };
@@ -101,16 +108,19 @@ export const AddExpenseForm: React.FC = () => {
       category: Yup.string().required('Select category'),
       description: Yup.string().required('Description is required'),
     }),
-    onSubmit: (values, { resetForm }) => {
+    onSubmit: async (values, { resetForm }) => {
+      if (!currentTrip) return;
+      setSubmitError(null);
+
       if (!rates) {
-        alert('Exchange rates are unavailable. Cannot compute conversion.');
+        setSubmitError('Exchange rates are unavailable. Cannot compute conversion.');
         return;
       }
 
       if (isOfflineRate && rateFetchedAt) {
         const cacheAgeMs = Date.now() - new Date(rateFetchedAt).getTime();
         if (cacheAgeMs > 24 * 60 * 60 * 1000) {
-          alert('FX Rates are older than 24 hours and cannot be used offline.');
+          setSubmitError('FX Rates are older than 24 hours and cannot be used offline.');
           return;
         }
       }
@@ -125,42 +135,42 @@ export const AddExpenseForm: React.FC = () => {
         const amountBase = convertToBaseCurrency(
           amountOriginal,
           values.currency,
-          currentTrip!.baseCurrency,
+          currentTrip.baseCurrency,
           rates
         );
 
-        dispatch(
-          addExpense({
-            id: crypto.randomUUID(),
-            payerId: values.payerId,
-            amount: amountBase,
-            amountOriginal,
-            currency: values.currency,
-            fxRate: rate,
-            category: values.category as any,
-            description: values.description,
-            date: new Date().toISOString(),
-            receiptPhotoUrl: photoBase64 || undefined,
-            isOfflineRate,
-            rateFetchedAt: rateFetchedAt || undefined,
-          })
-        );
+        const expensePayload = {
+          id: crypto.randomUUID(),
+          payerId: values.payerId,
+          amount: amountBase,
+          amountOriginal,
+          currency: values.currency,
+          fxRate: rate,
+          category: values.category as 'Food' | 'Transport' | 'Accommodation' | 'Entertainment' | 'Other',
+          description: values.description,
+          date: new Date().toISOString(),
+          isOfflineRate,
+          rateFetchedAt: rateFetchedAt || undefined,
+        };
 
-        if (toastTimeoutRef.current) {
-          clearTimeout(toastTimeoutRef.current);
-        }
-        setToastHasReceipt(!!photoBase64);
+        setIsSubmitting(true);
+        const saved = await tripApi.addExpense(currentTrip.id, expensePayload, receiptFile);
+        dispatch(addExpenseLocal(saved));
+
+        if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
+        setToastHasReceipt(!!receiptFile);
         setShowToast(true);
-        toastTimeoutRef.current = setTimeout(() => {
-          setShowToast(false);
-        }, 3000);
+        toastTimeoutRef.current = setTimeout(() => setShowToast(false), 3000);
 
         resetForm();
-        setPhotoBase64(null);
+        setPhotoPreview(null);
+        setReceiptFile(null);
         const fileInput = document.getElementById('receiptPhoto') as HTMLInputElement;
         if (fileInput) fileInput.value = '';
-      } catch (err: any) {
-        alert(err.message || 'Error processing currency conversion');
+      } catch (err) {
+        setSubmitError(err instanceof ApiError ? err.message : (err as Error).message || 'Failed to save expense');
+      } finally {
+        setIsSubmitting(false);
       }
     },
   });
@@ -183,6 +193,13 @@ export const AddExpenseForm: React.FC = () => {
         </div>
       )}
       
+      {submitError && (
+        <div className="flex items-center gap-2 bg-red-50 text-red-800 text-xs px-3.5 py-2.5 rounded-xl border border-red-200/60 mb-4 font-medium">
+          <AlertCircle size={15} />
+          <span>{submitError}</span>
+        </div>
+      )}
+
       {ratesError && (
         <div className="flex items-center gap-2 bg-amber-50 text-amber-800 text-xs px-3.5 py-2.5 rounded-xl border border-amber-200/60 mb-4 font-medium shadow-sm">
           <AlertCircle size={15} />
@@ -338,22 +355,23 @@ export const AddExpenseForm: React.FC = () => {
               onChange={handlePhotoChange}
             />
             <span className="text-xs font-semibold tracking-wide uppercase">
-              {photoBase64 ? 'Photo attached!' : 'Upload JPEG, PNG or HEIC (max 10MB)'}
+              {photoPreview ? 'Photo attached!' : 'Upload JPEG, PNG or HEIC (max 10MB)'}
             </span>
           </div>
           {photoError && <div className="text-red-500 text-xs mt-1.5 font-medium">{photoError}</div>}
-          {photoBase64 && (
+          {photoPreview && (
             <div className="mt-3 flex justify-center bg-slate-50 p-2.5 rounded-xl border border-slate-200">
-              <img src={photoBase64} alt="Receipt Thumbnail" className="max-h-32 object-contain rounded-lg shadow-sm border border-slate-200" />
+              <img src={photoPreview} alt="Receipt Thumbnail" className="max-h-32 object-contain rounded-lg shadow-sm border border-slate-200" />
             </div>
           )}
         </div>
 
         <button 
-          type="submit" 
-          className="w-full bg-gradient-to-r from-secondary to-pink-600 hover:from-pink-500 hover:to-pink-650 text-white px-6 py-3 rounded-xl font-bold shadow-md shadow-secondary/10 hover:shadow-lg hover:shadow-secondary/20 hover:-translate-y-0.5 active:translate-y-0 active:scale-98 transition-all mt-4 cursor-pointer text-sm tracking-wide uppercase"
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full bg-gradient-to-r from-secondary to-pink-600 hover:from-pink-500 hover:to-pink-650 text-white px-6 py-3 rounded-xl font-bold shadow-md shadow-secondary/10 hover:shadow-lg disabled:opacity-60 transition-all mt-4 cursor-pointer text-sm tracking-wide uppercase"
         >
-          Save Expense
+          {isSubmitting ? 'Saving...' : 'Save Expense'}
         </button>
       </form>
     </div>

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAppSelector } from '../../../hooks/store';
 import { Receipt, X, ZoomIn } from 'lucide-react';
+import { ReceiptImage } from '../../../components/ReceiptImage';
 
 const CATEGORY_STYLES: Record<string, { bg: string; text: string; border: string }> = {
   Food: { bg: 'bg-amber-50/80', text: 'text-amber-800', border: 'border-amber-200/50' },
@@ -12,7 +13,7 @@ const CATEGORY_STYLES: Record<string, { bg: string; text: string; border: string
 
 export const ExpenseList: React.FC = () => {
   const currentTrip = useAppSelector((state) => state.trip.currentTrip);
-  const [selectedPhoto, setSelectedPhoto] = useState<string | null>(null);
+  const [selectedExpenseId, setSelectedExpenseId] = useState<string | null>(null);
 
   if (!currentTrip) return null;
 
@@ -90,11 +91,11 @@ export const ExpenseList: React.FC = () => {
                   {/* Receipt Thumbnail */}
                   {expense.receiptPhotoUrl ? (
                     <div className="relative w-8 h-8 rounded-lg overflow-hidden border border-slate-200/80 shadow-sm cursor-zoom-in group/thumb shrink-0 active:scale-95 transition-all duration-200">
-                      <img
-                        src={expense.receiptPhotoUrl}
-                        alt="Receipt thumbnail"
+                      <ReceiptImage
+                        expenseId={expense.id}
+                        receiptUrl={expense.receiptPhotoUrl}
                         className="w-full h-full object-cover group-hover/thumb:scale-105 transition-transform duration-200"
-                        onClick={() => setSelectedPhoto(expense.receiptPhotoUrl || null)}
+                        onClick={() => setSelectedExpenseId(expense.id)}
                       />
                       <div 
                         className="absolute inset-0 bg-slate-950/20 opacity-0 group-hover/thumb:opacity-100 flex items-center justify-center transition-opacity pointer-events-none duration-150"
@@ -113,28 +114,26 @@ export const ExpenseList: React.FC = () => {
       )}
 
       {/* Lightbox Modal */}
-      {selectedPhoto && (
+      {selectedExpenseId && (
         <div 
           className="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 animate-in fade-in duration-200"
-          onClick={() => setSelectedPhoto(null)}
+          onClick={() => setSelectedExpenseId(null)}
         >
           <div 
             className="relative bg-white rounded-3xl p-3 max-w-lg w-full max-h-[85vh] flex flex-col shadow-2xl animate-in zoom-in-95 duration-200"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Close Button */}
             <button
-              onClick={() => setSelectedPhoto(null)}
+              onClick={() => setSelectedExpenseId(null)}
               className="absolute -top-3 -right-3 w-8 h-8 rounded-full bg-slate-900 hover:bg-slate-800 text-white flex items-center justify-center shadow-lg transition-all duration-200 border border-white/10 active:scale-90 cursor-pointer"
             >
               <X size={16} />
             </button>
 
-            {/* Receipt Image */}
             <div className="w-full overflow-hidden rounded-2xl flex items-center justify-center bg-slate-50 border border-slate-100">
-              <img
-                src={selectedPhoto}
-                alt="Full receipt"
+              <ReceiptImage
+                expenseId={selectedExpenseId}
+                receiptUrl={sortedExpenses.find((e) => e.id === selectedExpenseId)?.receiptPhotoUrl}
                 className="max-w-full max-h-[78vh] object-contain rounded-xl"
               />
             </div>

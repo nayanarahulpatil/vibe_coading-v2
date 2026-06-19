@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { useAppDispatch } from '../../../hooks/store';
-import { createTrip } from '../tripSlice';
+import { setCurrentTrip, setTrips } from '../tripSlice';
 import { SUPPORTED_CURRENCIES } from '../../../services/currencyService';
+import { tripApi } from '../../../services/tripApi';
+import { ApiError } from '../../../services/apiClient';
 
 export const CreateTripForm: React.FC = () => {
   const dispatch = useAppDispatch();
+  const [serverError, setServerError] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -17,23 +21,29 @@ export const CreateTripForm: React.FC = () => {
       title: Yup.string().required('Trip title is required'),
       baseCurrency: Yup.string().required('Base currency is required'),
     }),
-    onSubmit: (values) => {
-      dispatch(
-        createTrip({
-          id: crypto.randomUUID(),
-          title: values.title,
-          members: [],
-          baseCurrency: values.baseCurrency,
-        })
-      );
+    onSubmit: async (values) => {
+      setServerError(null);
+      setIsSubmitting(true);
+      try {
+        const trip = await tripApi.createTrip(values.title, values.baseCurrency);
+        dispatch(setCurrentTrip(trip));
+        const trips = await tripApi.listTrips();
+        dispatch(setTrips(trips));
+      } catch (err) {
+        setServerError(err instanceof ApiError ? err.message : 'Failed to create trip');
+      } finally {
+        setIsSubmitting(false);
+      }
     },
   });
 
   return (
     <div className="bg-white p-8 rounded-3xl shadow-sm border border-slate-200/85 transition-all duration-305 hover:shadow-md">
-      <h2 className="text-xl font-bold text-slate-800 mb-6">
-        Create a New Trip
-      </h2>
+      <h2 className="text-xl font-bold text-slate-800 mb-2">Create a New Trip</h2>
+      <p className="text-sm text-slate-500 mb-6">Your first trip — data is saved to your account.</p>
+      {serverError && (
+        <div className="text-red-600 text-sm bg-red-50 border border-red-200 rounded-xl px-4 py-3 mb-4">{serverError}</div>
+      )}
       <form onSubmit={formik.handleSubmit} className="flex flex-col gap-5">
         <div className="flex flex-col gap-4">
           <div className="flex-1">
@@ -79,17 +89,15 @@ export const CreateTripForm: React.FC = () => {
                 </option>
               ))}
             </select>
-            {formik.touched.baseCurrency && formik.errors.baseCurrency ? (
-              <div className="text-red-500 text-xs mt-1.5 font-medium">{formik.errors.baseCurrency}</div>
-            ) : null}
           </div>
         </div>
 
         <button
           type="submit"
-          className="bg-gradient-to-r from-primary to-indigo-600 text-white px-8 py-3 rounded-xl font-semibold shadow-md shadow-primary/10 hover:shadow-lg hover:shadow-primary/20 hover:-translate-y-0.5 active:translate-y-0 active:scale-98 transition-all w-full sm:w-fit self-end cursor-pointer"
+          disabled={isSubmitting}
+          className="bg-gradient-to-r from-primary to-indigo-600 text-white px-8 py-3 rounded-xl font-semibold shadow-md shadow-primary/10 hover:shadow-lg disabled:opacity-60 w-full sm:w-fit self-end cursor-pointer"
         >
-          Start Trip
+          {isSubmitting ? 'Creating...' : 'Start Trip'}
         </button>
       </form>
     </div>

@@ -1,42 +1,62 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 import type { Trip, Member, Expense } from '../../types';
+import type { TripSummary } from '../../services/tripApi';
 
 interface TripState {
   currentTrip: Trip | null;
+  trips: TripSummary[];
+  isLoading: boolean;
+  error: string | null;
 }
 
 const initialState: TripState = {
   currentTrip: null,
+  trips: [],
+  isLoading: false,
+  error: null,
 };
 
 const tripSlice = createSlice({
   name: 'trip',
   initialState,
   reducers: {
-    createTrip: (state, action: PayloadAction<{ id: string; title: string; members: Member[]; baseCurrency: string }>) => {
-      state.currentTrip = {
-        id: action.payload.id,
-        title: action.payload.title,
-        members: action.payload.members,
-        expenses: [],
-        baseCurrency: action.payload.baseCurrency,
-      };
+    setTrips: (state, action: PayloadAction<TripSummary[]>) => {
+      state.trips = action.payload;
     },
-    addMember: (state, action: PayloadAction<Member>) => {
+    setCurrentTrip: (state, action: PayloadAction<Trip | null>) => {
+      state.currentTrip = action.payload;
+    },
+    setTripLoading: (state, action: PayloadAction<boolean>) => {
+      state.isLoading = action.payload;
+    },
+    setTripError: (state, action: PayloadAction<string | null>) => {
+      state.error = action.payload;
+    },
+    addMemberLocal: (state, action: PayloadAction<Member>) => {
       if (state.currentTrip) {
         state.currentTrip.members.push(action.payload);
       }
     },
-    addExpense: (state, action: PayloadAction<Expense>) => {
+    addExpenseLocal: (state, action: PayloadAction<Expense>) => {
       if (state.currentTrip) {
         state.currentTrip.expenses.push(action.payload);
       }
     },
-    clearTrip: (state) => {
+    clearTripState: (state) => {
       state.currentTrip = null;
+      state.trips = [];
+      state.error = null;
     },
   },
 });
 
-export const { createTrip, addMember, addExpense, clearTrip } = tripSlice.actions;
+export const {
+  setTrips,
+  setCurrentTrip,
+  setTripLoading,
+  setTripError,
+  addMemberLocal,
+  addExpenseLocal,
+  clearTripState,
+} = tripSlice.actions;
 export default tripSlice.reducer;
