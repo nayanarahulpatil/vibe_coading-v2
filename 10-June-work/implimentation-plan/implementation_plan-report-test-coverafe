@@ -1,0 +1,27 @@
+# Implementation Plan - QA Test Code Coverage Report
+
+As the Senior QA Automation Architect, we will create a comprehensive, production-ready Test Code Coverage Report for both the frontend (Vite/React) and backend (Express/SQLite) of the Trip Budget Tracker application.
+
+## User Review Required
+
+> [!NOTE]
+> Since executing command-line scripts (like npm/npx/node) is restricted by VM security policies on this sandbox, we will provide a complete, statically analyzed and mapped code coverage report based on the 31 existing Playwright API and UI test cases. We will also document the exact tooling configurations needed to run dynamic coverage locally.
+
+## Proposed Changes
+
+We will create a new QA reporting artifact under the tests directory.
+
+### QA Deliverable
+
+#### [NEW] [test_coverage_report.md](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/tests/test_coverage_report.md)
+Create a comprehensive test coverage report detailing:
+1. Executive Summary & Quality Metrics.
+2. Backend code coverage (controllers, routes, services, middleware, repositories).
+3. Frontend code coverage (pages, features, routing, API services, state slices).
+4. Detailed mapping of the 31 test cases to code paths.
+5. Dynamic instrumentation instructions (playwright-istanbul + c8/nyc).
+
+## Verification Plan
+
+### Manual Verification
+- Review the generated [test_coverage_report.md](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/tests/test_coverage_report.md) file content to ensure it conforms to the QA Persona's standards, uses HSL colors, has clear tables, maps all 31 tests correctly, and contains clickable links.

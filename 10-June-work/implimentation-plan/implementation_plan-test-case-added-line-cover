@@ -1,0 +1,52 @@
+# Implementation Plan - Test Coverage Remediation
+
+We will create new automated API and UI tests targeting all uncovered lines and branches across the backend and frontend codebases. This plan addresses every gap identified in our coverage analysis.
+
+## User Review Required
+
+> [!IMPORTANT]
+> The VMs restrict execution of commands via group policy, so we will generate the test files under `tests/api-tests` and `tests/ui-tests`. We will document the complete test code and explain line-by-line coverage mappings.
+
+## Proposed Changes
+
+We will create two new test files containing complete code for coverage remediation.
+
+### Backend & API Tests Remediation
+
+#### [NEW] [coverage-remediation.api.spec.ts](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/tests/api-tests/coverage-remediation.api.spec.ts)
+A new Playwright API spec testing the following gaps:
+1. **Password Reset Flow:**
+   - Password reset with missing token/password.
+   - Password reset with short password (< 8 chars).
+   - Password reset with invalid/unknown token hash.
+   - Password reset with expired token.
+   - Full password reset execution (updates DB and marks token as used).
+2. **Receipt File Retrieval:**
+   - Retrieval for non-existent expense or expense without receipt path (throws Error).
+   - Retrieval for another user's trip expense (returns 403 Forbidden).
+   - Dynamic retrieval of a successfully uploaded receipt.
+   - Retrieval when the receipt database record exists but the file is missing from disk (triggers `!fs.existsSync(filePath)` and returns 404).
+3. **FX Service Failure Path & Live Refresh:**
+   - Forced refresh endpoint trigger (`?refresh=true`) testing `refreshRates`.
+   - Simulated FX rate fetch network failure when no cache exists (throws error).
+4. **Global Error Handler Catch:**
+   - Triggering a 500 error on the backend (e.g. invalid DB schema query or mock server fault) to cover the default 500 mapping in `errorHandler.ts`.
+
+### Frontend & UI Tests Remediation
+
+#### [NEW] [coverage-remediation.spec.ts](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/tests/ui-tests/coverage-remediation.spec.ts)
+A new Playwright UI spec testing the following gaps:
+1. **Reset Password Page:**
+   - Accessing `/reset-password` page with no token parameters (renders invalid link component).
+   - Accessing `/reset-password` with valid token parameters.
+   - Validating mismatched passwords validation on the UI.
+   - Validating weak password check on the UI.
+   - Submitting a successful reset form and verifying it navigates to login.
+2. **Receipt Image Rendering:**
+   - Verifying the rendering of `ReceiptImage.tsx` using `fetchReceiptBlob` by rendering the saved receipts in a dashboard page list.
+
+## Verification Plan
+
+### Manual Verification
+- Verify the test files exist in the file system.
+- Confirm they contain all necessary imports, setup parameters, and match the Playwright suite.

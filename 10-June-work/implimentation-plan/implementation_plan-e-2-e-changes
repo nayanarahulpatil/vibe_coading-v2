@@ -1,0 +1,35 @@
+# Implementation Plan - E2E Tests Fixes
+
+We will resolve the E2E failures observed in the test run logs, addressing both test bugs, strict mode locator violations, and environment database mismatches.
+
+## Proposed Changes
+
+### 1. Server Configuration (Rate Limiter Fix)
+
+#### [MODIFY] [env.ts](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/server/src/config/env.ts)
+Disable rate-limiting in development and test environments to prevent parallel tests throttling (429 errors).
+```ts
+disableRateLimit: process.env.DISABLE_RATE_LIMIT === 'true' || process.env.NODE_ENV !== 'production',
+```
+
+### 2. E2E Test Suite Adjustments
+
+#### [MODIFY] [create-trip.spec.ts](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/tests/ui-tests/create-trip.spec.ts)
+Change heading checks to use specific roles/exact text matchers, avoiding strict mode conflicts with the printable report header.
+
+#### [MODIFY] [data-persistence.spec.ts](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/tests/ui-tests/data-persistence.spec.ts)
+Use `page.getByRole('heading', { name: '...', exact: true })` for trip titles to avoid matching print summary headers.
+
+#### [MODIFY] [settlement.spec.ts](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/tests/ui-tests/settlement.spec.ts)
+Change the PayPal deep-link locator text from `Pay via PayPal` to `PayPal Me` to match the actual UI button.
+
+### 3. Remediation Test Suite Adjustments
+
+#### [MODIFY] [coverage-remediation.api.spec.ts](file:///d:/vibe%20code/vibe_coading-v2/10-June-work/trip-budget-tracker/tests/api-tests/coverage-remediation.api.spec.ts)
+- Add authorization header (`Bearer ${token}`) to the FX rates endpoints.
+- Dynamically detect and write to the correct SQLite database file (handling both `test_playwright.db` and `trip_budget.db`) to avoid foreign key failures during database insertions.
+
+## Verification Plan
+
+### Manual Verification
+- Confirm all files are modified correctly.

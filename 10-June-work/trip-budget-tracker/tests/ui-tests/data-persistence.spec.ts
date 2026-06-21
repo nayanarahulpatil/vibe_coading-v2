@@ -11,14 +11,14 @@ test.describe('Data Persistence UI (KPI-DB-01, KPI-DB-02, KPI-BAL-05)', () => {
     await page.getByLabel(/Trip Title/i).fill('Durability Trip');
     await page.getByLabel(/Base Currency/i).selectOption('INR');
     await page.getByRole('button', { name: /Start Trip/i }).click();
-    await expect(page.getByText('Durability Trip')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Durability Trip', exact: true })).toBeVisible();
 
     await page.getByRole('button', { name: /Logout/i }).click();
     await expect(page).toHaveURL(/\/login/);
 
     await loginViaUI(page, email);
-    await expect(page.getByText('Durability Trip')).toBeVisible({ timeout: 15000 });
-    await expect(page.getByText(/Base Currency: INR/i)).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Durability Trip', exact: true })).toBeVisible({ timeout: 15000 });
+    await expect(page.getByText('Base Currency: INR', { exact: true })).toBeVisible();
   });
 
   test('TC-UI-DB-002: Expense and balance survive re-login (KPI-DB-02, KPI-BAL-05)', async ({ page, request }) => {
@@ -28,8 +28,10 @@ test.describe('Data Persistence UI (KPI-DB-01, KPI-DB-02, KPI-BAL-05)', () => {
     await page.getByRole('button', { name: /Start Trip/i }).click();
     await page.locator('input#name').fill('Alice');
     await page.getByRole('button', { name: /Add Member/i }).click();
+    await expect(page.getByRole('heading', { name: 'Trip Members (1)' })).toBeVisible();
     await page.locator('input#name').fill('Bob');
     await page.getByRole('button', { name: /Add Member/i }).click();
+    await expect(page.getByRole('heading', { name: 'Trip Members (2)' })).toBeVisible();
 
     await page.locator('select#payerId').selectOption({ label: 'Alice' });
     await page.locator('input#amount').fill('100');
@@ -41,8 +43,8 @@ test.describe('Data Persistence UI (KPI-DB-01, KPI-DB-02, KPI-BAL-05)', () => {
     await page.getByRole('button', { name: /Logout/i }).click();
     await loginViaUI(page, email);
 
-    await expect(page.getByText('Expense Persist Trip')).toBeVisible({ timeout: 15000 });
-    await expect(page.getByText('Dinner')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Expense Persist Trip', exact: true })).toBeVisible({ timeout: 15000 });
+    await expect(page.getByTitle('Dinner', { exact: true })).toBeVisible();
     await expect(page.getByText('+USD 50.00')).toBeVisible();
   });
 

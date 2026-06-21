@@ -58,8 +58,6 @@ export const RegisterPage: React.FC = () => {
             type="email"
             placeholder="you@example.com"
             autoComplete="off"
-            readOnly
-            onFocus={(e) => e.target.removeAttribute('readOnly')}
             className="w-full px-4 py-3 border rounded-xl bg-slate-50/50 text-slate-800 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 border-slate-200 focus:border-primary/50 focus:ring-primary/20"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}

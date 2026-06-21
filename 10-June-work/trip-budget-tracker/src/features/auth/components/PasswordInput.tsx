@@ -24,12 +24,6 @@ export const PasswordInput: React.FC<PasswordInputProps> = ({
 }) => {
   const [visible, setVisible] = useState(false);
 
-  const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
-    if (preventAutofill) {
-      e.target.removeAttribute('readOnly');
-    }
-  };
-
   return (
     <div className="relative">
       <input
@@ -38,8 +32,6 @@ export const PasswordInput: React.FC<PasswordInputProps> = ({
         type={visible ? 'text' : 'password'}
         autoComplete={autoComplete}
         placeholder={placeholder}
-        readOnly={preventAutofill || undefined}
-        onFocus={handleFocus}
         className="w-full px-4 py-3 pr-11 border rounded-xl bg-slate-50/50 text-slate-800 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 border-slate-200 focus:border-primary/50 focus:ring-primary/20"
         onChange={onChange}
         onBlur={onBlur}

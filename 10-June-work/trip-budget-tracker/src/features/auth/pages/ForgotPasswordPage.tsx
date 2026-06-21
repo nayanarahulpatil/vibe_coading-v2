@@ -37,7 +37,7 @@ export const ForgotPasswordPage: React.FC = () => {
       {submitted ? (
         <div className="space-y-4">
           <p className="text-sm text-slate-600 bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3">
-            If an account exists for that email, a reset link has been generated.
+            If an account exists for that email, a reset link has been sent.
           </p>
           {devResetUrl ? (
             <div className="text-sm bg-amber-50 border border-amber-200 rounded-xl px-4 py-3 space-y-2">

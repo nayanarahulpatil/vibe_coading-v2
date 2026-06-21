@@ -24,7 +24,7 @@ export default defineConfig({
     {
       command: 'npm run start --prefix server',
       url: `http://localhost:${API_PORT}/health`,
-      reuseExistingServer: false,
+      reuseExistingServer: true,
       timeout: 120000,
       env: {
         PORT: String(API_PORT),

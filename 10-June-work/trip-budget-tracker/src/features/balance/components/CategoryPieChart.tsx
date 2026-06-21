@@ -91,7 +91,7 @@ export const CategoryPieChart: React.FC = () => {
         <h2>Category Breakdown</h2>
       </div>
 
-      <div className="flex flex-col sm:flex-row items-center gap-6 mt-4">
+      <div className="flex flex-col items-center gap-6 mt-4">
         <div className="flex items-center justify-center">
           <div 
             className="relative w-40 h-40 rounded-full flex items-center justify-center shadow-md transition-transform duration-500 hover:scale-105 border border-slate-200/50"
@@ -108,17 +108,17 @@ export const CategoryPieChart: React.FC = () => {
 
         <div className="flex-1 w-full space-y-2">
           {details.map((d) => (
-            <div key={d.category} className="flex items-center justify-between p-1.5 rounded-xl hover:bg-slate-55 transition-colors">
-              <div className="flex items-center gap-2.5">
+            <div key={d.category} className="flex items-center justify-between px-3 py-2 rounded-xl hover:bg-slate-50 transition-colors gap-3">
+              <div className="flex items-center gap-2.5 min-w-0">
                 <span 
-                  className="w-2.5 h-2.5 rounded-full shadow-sm" 
+                  className="w-2.5 h-2.5 rounded-full shadow-sm shrink-0" 
                   style={{ backgroundColor: d.color }} 
                 />
-                <span className="font-bold text-slate-600 text-xs uppercase tracking-wider">{d.category}</span>
+                <span className="font-bold text-slate-600 text-xs uppercase tracking-wider truncate" title={d.category}>{d.category}</span>
               </div>
-              <div className="flex items-center gap-4 text-right">
-                <span className="text-[10px] font-extrabold text-slate-400">{d.percentage.toFixed(1)}%</span>
-                <span className="font-extrabold text-slate-800 text-sm">
+              <div className="flex items-center gap-3 sm:gap-4 text-right shrink-0">
+                <span className="text-[10px] font-extrabold text-slate-400 whitespace-nowrap">{d.percentage.toFixed(1)}%</span>
+                <span className="font-extrabold text-slate-800 text-sm whitespace-nowrap">
                   {baseCurrency} {d.amount.toFixed(2)}
                 </span>
               </div>

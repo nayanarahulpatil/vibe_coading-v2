@@ -7,7 +7,7 @@ export const env = {
   uploadsDir: process.env.UPLOADS_DIR || 'uploads',
   fxApiUrl: process.env.FX_API_URL || 'https://open.er-api.com/v6/latest',
   clientOrigin: process.env.CLIENT_ORIGIN || 'http://localhost:5173',
-  disableRateLimit: process.env.DISABLE_RATE_LIMIT === 'true',
+  disableRateLimit: process.env.DISABLE_RATE_LIMIT === 'true' || process.env.NODE_ENV !== 'production',
   /** In dev, return reset URL in API response (no real email sent). Never enable in production. */
   devReturnResetLink: process.env.NODE_ENV !== 'production',
 };

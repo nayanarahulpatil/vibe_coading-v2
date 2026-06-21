@@ -22,3 +22,13 @@ Output Format:
 ## Code Changes
 ## Regression Risks
 ## Prevention Strategy
+
+
+
+----ui issue fix propmt---
+
+Fix UI issue in Category Breakdown section:
+Right-side text is touching the border causing poor spacing.
+
+Find root cause and fix CSS/layout issue (padding/margin/flex/grid).
+Provide corrected code and ensure responsive design is not broken.
