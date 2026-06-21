@@ -26,10 +26,14 @@ export const authService = {
   },
 
   async login(email: string, password: string) {
+    console.log('Attempting login for email:', email,password); // Debugging line
     const user = userRepository.findByEmail(email);
+    console.log('User found:', user); // Debugging line
     if (!user) throw new Error('Invalid email or password');
 
+
     const valid = await bcrypt.compare(password, user.password_hash);
+    console.log('Password valid:', valid); // Debugging line
     if (!valid) throw new Error('Invalid email or password');
 
     const payload: AuthPayload = { userId: user.id, email: user.email };

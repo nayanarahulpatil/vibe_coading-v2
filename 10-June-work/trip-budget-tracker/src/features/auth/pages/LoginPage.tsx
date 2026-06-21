@@ -29,7 +29,7 @@ export const LoginPage: React.FC = () => {
 
   return (
     <AuthLayout title="Welcome back" subtitle="Sign in to access your trips">
-      <form onSubmit={formik.handleSubmit} className="space-y-4">
+      <form onSubmit={formik.handleSubmit} className="space-y-4" autoComplete="off">
         {error && (
           <div className="text-red-600 text-sm bg-red-50 border border-red-200 rounded-xl px-4 py-3 font-medium">
             {error}
@@ -43,7 +43,11 @@ export const LoginPage: React.FC = () => {
             id="email"
             name="email"
             type="email"
-            className="w-full px-4 py-3 border rounded-xl bg-slate-50/50 text-slate-800 focus:bg-white focus:outline-none focus:ring-2 border-slate-200 focus:border-primary/50 focus:ring-primary/20"
+            placeholder="you@example.com"
+            autoComplete="off"
+            readOnly
+            onFocus={(e) => e.target.removeAttribute('readOnly')}
+            className="w-full px-4 py-3 border rounded-xl bg-slate-50/50 text-slate-800 placeholder:text-slate-400 focus:bg-white focus:outline-none focus:ring-2 border-slate-200 focus:border-primary/50 focus:ring-primary/20"
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.email}
@@ -59,6 +63,9 @@ export const LoginPage: React.FC = () => {
           <PasswordInput
             id="password"
             name="password"
+            placeholder="Enter your password"
+            autoComplete="new-password"
+            preventAutofill
             onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             value={formik.values.password}

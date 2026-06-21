@@ -5,7 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/app.ts",
-    "start": "tsx src/app.ts"
+    "start": "tsx src/app.ts",
+    "migrate": "tsx src/database/migrate.ts",
+    "migrate:generate": "tsx src/database/generate-migration.ts"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",
